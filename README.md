@@ -1,139 +1,107 @@
-# 🧪 Enterprise-Grade Karate BDD Testing Framework
+# Home Test API - Karate BDD Tests
 
-[![Java](https://img.shields.io/badge/Java-22-orange.svg)](https://www.oracle.com/java/)
-[![Karate](https://img.shields.io/badge/Karate-1.5.1-green.svg)](https://github.com/karatelabs/karate)
-[![Maven](https://img.shields.io/badge/Maven-3.9+-blue.svg)](https://maven.apache.org/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+A simple BDD testing framework for Inventory API using Karate with Java and Maven. 
 
-A comprehensive, industry-standard BDD testing framework for Inventory API using Karate with modular architecture, external test data management, and enterprise-grade best practices.
+**Architecture**: Separate feature files organized by functionality with a single test runner generating one unified report.
 
-## 📋 Table of Contents
+## Test Scenarios
 
-- [🏗️ Architecture Overview](#-architecture-overview)
-- [🚀 Quick Start](#-quick-start)
-- [📁 Project Structure](#-project-structure)
-- [⚙️ Configuration](#-configuration)
-- [🧪 Test Execution](#-test-execution)
-- [📊 Test Categories](#-test-categories)
-- [🔧 Advanced Usage](#-advanced-usage)
-- [📈 Reporting](#-reporting)
-- [🔐 Security](#-security)
-- [🚀 CI/CD Integration](#-cicd-integration)
+This project implements the following test scenarios across 3 focused feature files:
 
-## 🏗️ Architecture Overview
+1. **Get all menu items** - Validates response contains ≥9 items with required fields
+2. **Filter by ID** - Gets "Baked Rolls x 8" item by ID=3  
+3. **Add unique test item** - Tests API behavior for new item (API returns 400)
+4. **Add existing item** - Validates rejection of duplicate ID (400 status)
+5. **Add missing data** - Validates rejection when required fields are missing
+6. **Verify existing item** - Confirms "Hawaiian" item exists in inventory
 
-This framework implements industry best practices with:
-
-- **Modular Feature Files**: Separated by functionality (GET, POST, Filter operations)
-- **External Test Data**: JSON-based test data management
-- **Reusable Components**: Common utilities and validation functions
-- **Environment Management**: Multi-environment configuration support
-- **Tag-based Execution**: Organized test execution by categories
-- **Comprehensive Reporting**: Enhanced HTML reports with detailed insights
-
-### 🎯 Key Features
-
-- ✅ **Data-Driven Testing** with external JSON files
-- ✅ **Modular Architecture** for maintainability
-- ✅ **Multi-Environment Support** (local, dev, staging, prod)
-- ✅ **Parallel Test Execution** capabilities
-- ✅ **Comprehensive Validation** (functional, security, performance)
-- ✅ **Industry-Standard Patterns** and conventions
-
-## 🚀 Quick Start
-
-### Prerequisites
+## Prerequisites
 
 - **Java 22+** - [Download OpenJDK](https://openjdk.org/)
 - **Maven 3.9+** - [Download Maven](https://maven.apache.org/download.cgi)
-- **Git** - [Download Git](https://git-scm.com/)
 
-### Installation
+## IDE Setup
 
-```bash
-# Clone the repository
-git clone https://github.com/your-username/home-test-api.git
-cd home-test-api
+### IntelliJ IDEA
 
-# Verify Java and Maven installation
-java -version
-mvn -version
+1. **Import Project**:
+   - Open IntelliJ IDEA
+   - Select "Open or Import" → Choose `pom.xml`
+   - Select "Open as Project"
+   - IntelliJ will auto-detect Maven and import dependencies
 
-# Run all tests
-mvn clean test
+2. **Karate Plugin**:
+   - Go to `File` → `Settings` → `Plugins`
+   - Search for "Karate" and install the official plugin
+   - Restart IntelliJ
 
-# Run specific test categories
-mvn test -Psmoke          # Smoke tests only
-mvn test -Pcritical       # Critical tests only
-mvn test -Pperformance    # Performance tests only
-```
+3. **Run Configuration**:
+   - Right-click on `InventoryApiTest.java` → "Run"
+   - Or use Maven tool window: `Lifecycle` → `test`
 
-## 📁 Project Structure
+4. **Features**:
+   - Syntax highlighting for `.feature` files
+   - Debug support with breakpoints
+   - Built-in test runner integration
+
+### Eclipse IDE
+
+1. **Import Project**:
+   - Open Eclipse
+   - `File` → `Import` → `Maven` → `Existing Maven Projects`
+   - Browse to project root and select `pom.xml`
+   - Click "Finish"
+
+2. **Karate Support**:
+   - Install "Eclipse Wild Web Developer" from Eclipse Marketplace
+   - Provides syntax highlighting for `.feature` files
+   - Alternative: Use generic text editor for `.feature` files
+
+3. **Run Configuration**:
+   - Right-click project → `Run As` → `Maven test`
+   - Or create JUnit run configuration for `InventoryApiTest.java`
+
+4. **Maven Integration**:
+   - Use Maven view: `Window` → `Show View` → `Other` → `Maven`
+   - Run goals: clean, compile, test
+
+### Test Reports Location
+
+After running tests, the HTML reports are available in:
+- **Root directory**: `karate-summary.html` (copied for easy access)
+- **Target directory**: `target/karate-reports/karate-summary.html`
+
+## Project Structure
 
 ```
 home-test-api/
-├── 📄 pom.xml                                    # Maven configuration with profiles
-├── 📄 README.md                                  # This comprehensive guide
-├── 📄 .gitignore                                # Git ignore patterns
-└── 📁 src/test/
-    ├── 📁 java/com/hometest/
-    │   ├── 📁 api/
-    │   │   └── 📄 InventoryTestSuite.java        # Main test suite runner
-    │   └── 📁 utils/
-    │       └── 📄 TestDataHelper.java            # Java utility functions
-    └── 📁 resources/
-        ├── 📄 karate-config.js                   # Enhanced environment configuration
-        ├── 📄 application.properties             # Application settings
-        ├── 📁 test-data/                        # 🎯 External JSON test data
-        │   ├── 📄 expected-inventory.json        # Expected response data
-        │   ├── 📄 new-items.json                # Test items for POST operations
-        │   └── 📄 api-endpoints.json            # API endpoints configuration
-        └── 📁 features/
-            ├── 📁 common/
-            │   └── 📄 api-utils.feature          # Reusable utility functions
-            └── 📁 inventory/                     # 🎯 Modular feature files
-                ├── 📄 get-inventory.feature      # GET operations & validation
-                ├── 📄 filter-inventory.feature   # Filter & search operations
-                └── 📄 add-inventory.feature      # POST operations & validation
+├── pom.xml                                    # Maven configuration
+├── README.md                                  # This file
+├── karate-summary.html                        # Test report (copied to root)
+└── src/test/
+    ├── java/com/hometest/api/
+    │   └── InventoryApiTest.java              # Single test runner for all features
+    └── resources/
+        ├── test-data/                         # External JSON test data
+        │   ├── expected-inventory.json        # Expected response data
+        │   ├── new-items.json                 # Test items for POST operations
+        │   └── api-endpoints.json             # API endpoints configuration
+        ├── features/                          # Separate feature files by functionality
+        │   ├── get-inventory.feature          # GET operations (scenarios 1, 6)
+        │   ├── filter-inventory.feature       # Filter operations (scenario 2)
+        │   └── add-inventory.feature          # POST operations (scenarios 3, 4, 5)
+        └── karate-config.js                   # Configuration
 ```
 
-## ⚙️ Configuration
+## Configuration
 
-### Environment Management
+The API base URL is configured in `karate-config.js`:
+- **Local**: `http://localhost:3100` (default)
+- **Dev**: Override with `-Dkarate.env=dev`
+- **Staging**: Override with `-Dkarate.env=staging` 
+- **Production**: Override with `-Dkarate.env=prod`
 
-The framework supports multiple environments with different configurations:
-
-```javascript
-// karate-config.js - Environment-specific settings
-{
-  "local":   { baseUrl: "http://localhost:3100",     timeout: 30000 },
-  "dev":     { baseUrl: "https://dev-api.example.com", timeout: 45000 },
-  "staging": { baseUrl: "https://staging-api.example.com", timeout: 60000 },
-  "prod":    { baseUrl: "https://api.example.com",   timeout: 90000 }
-}
-```
-
-### Test Data Management
-
-External JSON files manage all test data:
-
-```json
-// test-data/expected-inventory.json
-{
-  "minItemCount": 9,
-  "requiredFields": ["id", "name", "price", "image"],
-  "expectedItems": {
-    "3": {
-      "id": "3",
-      "name": "Baked Rolls x 8",
-      "price": "$10",
-      "image": "roll.png"
-    }
-  }
-}
-```
-
-## 🧪 Test Execution
+## Running Tests
 
 ### Basic Execution
 
@@ -143,310 +111,122 @@ mvn clean test
 
 # Run with specific environment
 mvn test -Dkarate.env=dev
-
-# Run with Maven profiles
-mvn test -Psmoke                    # Smoke tests
-mvn test -Pcritical                 # Critical path tests
-mvn test -Pperformance              # Performance tests
-mvn test -Psecurity                 # Security validation tests
 ```
 
-### Advanced Execution
+### Environment Profiles
 
 ```bash
-# Parallel execution for faster results
-mvn test -Pparallel
+mvn test -Pdev          # Development environment
+mvn test -Pstaging      # Staging environment  
+mvn test -Prod          # Production environment
+```
 
-# Combine environment and test type
-mvn test -Pdev,smoke
+## Feature File Organization
+
+### Benefits
+- **Focused Feature Files**: Each file contains related scenarios (GET, Filter, Add operations)
+- **Single Test Runner**: `InventoryApiTest.java` executes all features automatically
+- **Unified Report**: All results combined into one comprehensive report
+- **Maintainability**: Easy to locate and modify specific test scenarios
+- **Parallel Execution**: Karate can run feature files in parallel when needed
+
+### Running Specific Features
+
+```bash
+# Run all features (default)
+mvn clean test
 
 # Run specific feature file
-mvn test -Dtest=InventoryTestSuite#getInventoryTests
+mvn test -Dkarate.options="classpath:features/get-inventory.feature"
+mvn test -Dkarate.options="classpath:features/filter-inventory.feature" 
+mvn test -Dkarate.options="classpath:features/add-inventory.feature"
 
-# Debug mode with detailed logging
-mvn test -Dkarate.env=local -Dkarate.options="--tags @debug"
+# Run by scenario tags
+mvn test -Dkarate.options="--tags @get-all"
+mvn test -Dkarate.options="--tags @filter-by-id"
+mvn test -Dkarate.options="--tags @add-new"
 ```
 
-### Tag-Based Execution
+## Test Reports
 
-```bash
-# Execute by functionality
-mvn test -Dkarate.options="--tags @get"         # GET operations only
-mvn test -Dkarate.options="--tags @add"         # POST operations only
-mvn test -Dkarate.options="--tags @filter"      # Filter operations only
-
-# Execute by priority
-mvn test -Dkarate.options="--tags @critical"    # Critical tests
-mvn test -Dkarate.options="--tags @smoke"       # Smoke tests
-
-# Execute by test type
-mvn test -Dkarate.options="--tags @validation"  # Validation tests
-mvn test -Dkarate.options="--tags @security"    # Security tests
-mvn test -Dkarate.options="--tags @performance" # Performance tests
+After execution, view the HTML report:
 ```
-
-## 📊 Test Categories
-
-### 🎯 Test Tags Organization
-
-| Tag | Purpose | Features |
-|-----|---------|----------|
-| `@smoke` | Quick validation | Core functionality verification |
-| `@critical` | Essential flows | Business-critical path testing |
-| `@get` | GET operations | Inventory retrieval and validation |
-| `@filter` | Search/Filter | Item filtering and search functionality |
-| `@add` | POST operations | Item creation and validation |
-| `@validation` | Data validation | Field validation and error handling |
-| `@security` | Security testing | Input sanitization and security checks |
-| `@performance` | Performance | Response time and load validation |
-| `@data-driven` | Data variations | Multiple data sets and edge cases |
-| `@negative` | Error scenarios | Invalid inputs and error conditions |
-
-### 📋 Test Scenarios Coverage
-
-#### GET Inventory Operations
-- ✅ Retrieve all menu items (minimum 9 items)
-- ✅ Validate response structure and required fields
-- ✅ Data integrity verification for specific items
-- ✅ Response time performance validation
-- ✅ Response headers validation
-
-#### Filter Operations
-- ✅ Filter by valid item ID
-- ✅ Data-driven validation with multiple items
-- ✅ Non-existent ID handling (404 scenarios)
-- ✅ Invalid ID format validation
-- ✅ Performance benchmarking
-
-#### Add Operations
-- ✅ Add new item validation
-- ✅ Duplicate item rejection (400 status)
-- ✅ Missing required fields validation
-- ✅ Security validation (XSS, SQL injection)
-- ✅ Data type validation
-- ✅ Boundary value testing
-- ✅ Integration state verification
-
-## 🔧 Advanced Usage
-
-### Custom Test Data
-
-Create environment-specific test data:
-
-```bash
-# Create custom test data
-mkdir src/test/resources/test-data/environments
-echo '{"customItem": {"id": "999", "name": "Custom Item"}}' > src/test/resources/test-data/environments/dev-data.json
-```
-
-### Extending Utilities
-
-Add custom utility functions:
-
-```java
-// src/test/java/com/hometest/utils/CustomHelper.java
-public class CustomHelper {
-    public static String generateTestData() {
-        // Custom logic here
-        return "custom-data";
-    }
-}
-```
-
-### Custom Validation
-
-Add custom validation in feature files:
-
-```gherkin
-# Custom validation scenario
-@custom @validation
-Scenario: Custom business rule validation
-  * def customValidator = 
-  """
-  function(response) {
-    // Custom validation logic
-    return response.someField === 'expectedValue';
-  }
-  """
-  * assert customValidator(response)
-```
-
-## 📈 Reporting
-
-### HTML Reports
-
-After test execution, comprehensive reports are generated:
-
-```bash
-# Main report location
 target/karate-reports/karate-summary.html
-
-# Individual feature reports
-target/karate-reports/[feature-name].html
 ```
+*Also available in root directory: `karate-summary.html`*
 
-### Report Features
+## API Endpoints Tested
 
-- 📊 **Test Summary**: Pass/fail statistics with visual indicators
-- 🕒 **Execution Timeline**: Detailed timing information
-- 📝 **Request/Response**: Complete HTTP transaction details
-- 🖼️ **Screenshots**: Visual evidence for failed tests
-- 📋 **Tags Summary**: Results organized by test categories
-- 🌍 **Environment Info**: Configuration and environment details
+| Method | Endpoint | Purpose |
+|--------|----------|---------|
+| GET | `/api/inventory` | Get all menu items |
+| GET | `/api/inventory/filter?id=3` | Filter item by ID |
+| POST | `/api/inventory/add` | Add new item |
 
-### CI/CD Integration Reports
+## Expected API Behavior
+
+- **GET /api/inventory** returns JSON with `data` array containing items
+- Each item has: `id`, `name`, `price`, `image` fields
+- **GET /api/inventory/filter?id=3** returns item: "Baked Rolls x 8", price "$10"
+- **POST /api/inventory/add** returns 400 status for all POST requests (current API behavior)
+
+## Test Tags & Organization
+
+All scenarios are tagged with `@smoke` and `@critical`, plus specific scenario tags:
+
+### Feature Files & Tags
+| Feature File | Scenarios | Tags |
+|--------------|-----------|------|
+| `get-inventory.feature` | Get all items, Verify existing item | `@get-all`, `@verify-added-item` |
+| `filter-inventory.feature` | Filter by ID | `@filter-by-id` |
+| `add-inventory.feature` | Add new (400), Add existing (400), Add missing data (400) | `@add-new`, `@add-existing`, `@add-missing-data` |
+
+### Tag-based Execution
 
 ```bash
-# Generate JUnit XML for CI/CD
-mvn test -Dkarate.options="--format junit:target/karate-reports"
+# Run all tests (all feature files)
+mvn test
 
-# Generate custom JSON reports
-mvn test -Dkarate.options="--format json:target/karate-reports"
+# Run specific scenarios by tag
+mvn test -Dkarate.options="--tags @get-all"
+mvn test -Dkarate.options="--tags @filter-by-id" 
+mvn test -Dkarate.options="--tags @add-new"
+
+# Run by priority (across all features)
+mvn test -Dkarate.options="--tags @smoke"
+mvn test -Dkarate.options="--tags @critical"
 ```
 
-## 🔐 Security
-
-### Security Testing Features
-
-- **Input Validation**: XSS and injection attack prevention
-- **Data Sanitization**: Malicious input handling
-- **Authentication**: Token-based security testing
-- **Authorization**: Role-based access validation
-- **SSL/TLS**: Secure communication verification
-
-### Security Test Examples
-
-```gherkin
-@security
-Scenario: XSS Prevention Validation
-  * def maliciousPayload = '<script>alert("xss")</script>'
-  * request { id: maliciousPayload, name: 'Test Item' }
-  * method POST
-  * status 400
-```
-
-## 🚀 CI/CD Integration
-
-### GitHub Actions
-
-```yaml
-# .github/workflows/api-tests.yml
-name: API Tests
-on: [push, pull_request]
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
-        with:
-          java-version: '22'
-      - name: Run Smoke Tests
-        run: mvn test -Psmoke
-      - name: Run Critical Tests
-        run: mvn test -Pcritical
-```
-
-### Jenkins Pipeline
-
-```groovy
-pipeline {
-    agent any
-    stages {
-        stage('Test') {
-            parallel {
-                stage('Smoke Tests') {
-                    steps {
-                        sh 'mvn test -Psmoke'
-                    }
-                }
-                stage('Critical Tests') {
-                    steps {
-                        sh 'mvn test -Pcritical'
-                    }
-                }
-            }
-        }
-    }
-    post {
-        always {
-            publishHTML([
-                allowMissing: false,
-                alwaysLinkToLastBuild: true,
-                keepAll: true,
-                reportDir: 'target/karate-reports',
-                reportFiles: 'karate-summary.html',
-                reportName: 'Karate Test Report'
-            ])
-        }
-    }
-}
-```
-
-### Docker Integration
-
-```dockerfile
-# Dockerfile
-FROM openjdk:22-jdk-slim
-COPY . /app
-WORKDIR /app
-RUN ./mvnw test -Psmoke
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Follow the established patterns and conventions
-4. Add appropriate tests and documentation
-5. Commit your changes (`git commit -m 'Add amazing feature'`)
-6. Push to the branch (`git push origin feature/amazing-feature`)
-7. Open a Pull Request
-
-## 📝 Best Practices
-
-### ✅ Do's
-- Use meaningful scenario names and descriptions
-- Implement data-driven testing for comprehensive coverage
-- Add appropriate tags for test organization
-- Use external test data files for maintainability
-- Include performance and security validations
-- Write reusable utility functions
-
-### ❌ Don'ts
-- Don't hardcode test data in feature files
-- Don't create monolithic feature files
-- Don't skip error scenario testing
-- Don't ignore performance implications
-- Don't mix test environments in the same execution
-
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
 | Issue | Solution |
 |-------|----------|
-| Java version conflicts | Ensure Java 22+ is installed and JAVA_HOME is set |
-| Maven dependency errors | Run `mvn clean install -U` to update dependencies |
-| Test data not found | Verify JSON files exist in `test-data/` directory |
-| Environment config issues | Check `karate-config.js` environment settings |
-| Network timeouts | Adjust timeout values in configuration |
+| Connection refused | Ensure API is running on `http://localhost:3100` |
+| Java version | Verify Java 22+ with `java -version` |
+| Maven errors | Run `mvn clean install` |
 
 ### Debug Mode
 
 ```bash
-# Enable detailed logging
-mvn test -Dkarate.env=local -Dkarate.options="--tags @debug" -X
+mvn test -Dkarate.options="--tags @debug" -X
 ```
 
-## 📞 Support
+## Sample Test Output
 
-- **Issues**: [GitHub Issues](https://github.com/your-username/home-test-api/issues)
-- **Documentation**: [Karate Documentation](https://github.com/karatelabs/karate)
-- **Community**: [Karate Discussions](https://github.com/karatelabs/karate/discussions)
+```
+✅ Get all menu items - PASSED
+✅ Filter by id - Get Baked Rolls x 8 - PASSED  
+✅ Add item for non-existent id - PASSED
+✅ Add item for existing id - should fail - PASSED
+✅ Try to add item with missing information - PASSED
+✅ Validate recently added item is present - PASSED
+
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0
+```
 
 ---
 
-**Made with ❤️ using Karate BDD Framework**
-
-*This framework demonstrates enterprise-grade testing practices with comprehensive validation, modular architecture, and industry-standard patterns.*
+**Framework**: Karate BDD + Java 22 + Maven  
+**Focus**: Core inventory API validation scenarios

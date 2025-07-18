@@ -1,24 +1,15 @@
 {
   "endpoints": {
-    "inventory": {
-      "getAll": "/api/inventory",
-      "filter": "/api/inventory/filter",
-      "add": "/api/inventory/add"
-    }
+    "getAll": "/api/inventory",
+    "filter": "/api/inventory/filter",
+    "add": "/api/inventory/add"
   },
   "statusCodes": {
     "success": 200,
     "badRequest": 400,
-    "unauthorized": 401,
-    "notFound": 404,
-    "serverError": 500
+    "notFound": 404
   },
-  "headers": {
-    "contentType": "application/json",
-    "accept": "application/json"
-  },
-  "timeouts": {
-    "connection": 30000,
-    "read": 30000
+  "parameters": {
+    "filterId": "3"
   }
 } 

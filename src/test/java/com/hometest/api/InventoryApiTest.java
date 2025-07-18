@@ -3,15 +3,13 @@ package com.hometest.api;
 import com.intuit.karate.junit5.Karate;
 
 /**
- * Legacy test runner for backward compatibility
- * @deprecated Use InventoryTestSuite for enhanced functionality
+ * Main test runner for Inventory API scenarios
  */
-@Deprecated
 class InventoryApiTest {
 
     @Karate.Test
     Karate testInventoryApi() {
-        return Karate.run("classpath:features/inventory")
+        return Karate.run("classpath:features")
                 .relativeTo(getClass());
     }
 } 

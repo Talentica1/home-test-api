@@ -2,21 +2,26 @@
   "minItemCount": 9,
   "requiredFields": ["id", "name", "price", "image"],
   "expectedItems": {
-    "3": {
+    "bakedRolls": {
       "id": "3",
       "name": "Baked Rolls x 8",
       "price": "$10",
       "image": "roll.png"
     },
-    "10": {
+    "hawaiian": {
       "id": "10",
       "name": "Hawaiian",
       "price": "$14",
       "image": "hawaiian.png"
+    },
+    "uniqueTestPizza": {
+      "id": "9994",
+      "name": "Unique Test Pizza Sup4reme",
+      "price": "$19.949",
+      "image": "unique-test-pizza4.png"
     }
   },
   "responseStructure": {
-    "rootProperty": "data",
-    "itemsProperty": "data"
+    "dataProperty": "data"
   }
 } 

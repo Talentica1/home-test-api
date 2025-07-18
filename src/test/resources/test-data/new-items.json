@@ -1,17 +1,17 @@
 {
-  "validNewItem": {
-    "id": "11",
-    "name": "New Hawaiian Supreme",
-    "image": "hawaiian-supreme.png",
-    "price": "$16"
+  "uniqueNewItem": {
+    "id": "999",
+    "name": "Unique Test Pizza Supreme",
+    "image": "unique-test-pizza.png",
+    "price": "$19.99"
   },
-  "existingItem": {
+  "hawaiianItem": {
     "id": "10",
     "name": "Hawaiian",
     "image": "hawaiian.png",
     "price": "$14"
   },
-  "invalidItems": {
+  "incompleteItems": {
     "missingId": {
       "name": "Missing ID Item",
       "image": "missing-id.png",
@@ -33,9 +33,7 @@
       "price": "$15"
     }
   },
-  "expectedResponses": {
-    "successStatus": 400,
-    "errorStatus": 400,
-    "errorMessage": "Not all requirements are met"
+  "expectedMessages": {
+    "missingRequirements": "Not all requirements are met"
   }
 } 
