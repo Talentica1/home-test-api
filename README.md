@@ -19,6 +19,7 @@ This project implements the following test scenarios across 3 focused feature fi
 
 - **Java 22+** - [Download OpenJDK](https://openjdk.org/)
 - **Maven 3.9+** - [Download Maven](https://maven.apache.org/download.cgi)
+- **IDE** - IntelliJ IDEA (recommended) or Eclipse with Maven support
 
 ## IDE Setup
 
@@ -68,8 +69,7 @@ This project implements the following test scenarios across 3 focused feature fi
 ### Test Reports Location
 
 After running tests, the HTML reports are available in:
-- **Root directory**: `karate-summary.html` (copied for easy access)
-- **Target directory**: `target/karate-reports/karate-summary.html`
+- `target/karate-reports/karate-summary.html`
 
 ## Project Structure
 
@@ -77,7 +77,6 @@ After running tests, the HTML reports are available in:
 home-test-api/
 ├── pom.xml                                    # Maven configuration
 ├── README.md                                  # This file
-├── karate-summary.html                        # Test report (copied to root)
 └── src/test/
     ├── java/com/hometest/api/
     │   └── InventoryApiTest.java              # Single test runner for all features
@@ -153,7 +152,6 @@ After execution, view the HTML report:
 ```
 target/karate-reports/karate-summary.html
 ```
-*Also available in root directory: `karate-summary.html`*
 
 ## API Endpoints Tested
 
