@@ -1,0 +1,22 @@
+{
+  "minItemCount": 9,
+  "requiredFields": ["id", "name", "price", "image"],
+  "expectedItems": {
+    "3": {
+      "id": "3",
+      "name": "Baked Rolls x 8",
+      "price": "$10",
+      "image": "roll.png"
+    },
+    "10": {
+      "id": "10",
+      "name": "Hawaiian",
+      "price": "$14",
+      "image": "hawaiian.png"
+    }
+  },
+  "responseStructure": {
+    "rootProperty": "data",
+    "itemsProperty": "data"
+  }
+} 
